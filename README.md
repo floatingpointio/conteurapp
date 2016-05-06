@@ -1,20 +1,8 @@
 # Meetingminutes
 
-**TODO: Add description**
+Zanimljiva dokumentacija
 
-## Installation
-
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed as:
-
-  1. Add meetingminutes to your list of dependencies in `mix.exs`:
-
-        def deps do
-          [{:meetingminutes, "~> 0.0.1"}]
-        end
-
-  2. Ensure meetingminutes is started before your application:
-
-        def application do
-          [applications: [:meetingminutes]]
-        end
-
+* Create event https://developers.google.com/google-apps/calendar/v3/reference/events/insert
+* Event list https://developers.google.com/google-apps/calendar/v3/reference/events/list
+* Push https://developers.google.com/google-apps/calendar/v3/push#overview
+* Sync https://developers.google.com/google-apps/calendar/v3/sync
