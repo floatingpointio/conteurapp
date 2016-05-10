@@ -1,2 +1,0 @@
-defmodule Meetingminutes do
-end
