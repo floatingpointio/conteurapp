@@ -10,7 +10,7 @@
         <span class="icon-bar"></span>
       </button>
 
-      <a class="navbar-brand" href="/calendar">
+      <a class="navbar-brand" href="/calendars">
         <img alt="Brand" src="/images/meetingstories_logo.png" />
       </a>
     </div>
