@@ -1,4 +1,4 @@
-<h2>Listing calendars</h2>
+<h2>Calendars <%= button "Sync", to: "/sync/calendars", class: "btn btn-default btn-xs" %></h2> 
 
 <table class="table">
   <thead>
@@ -7,8 +7,6 @@
       <th>Summary</th>
       <th>Time zone</th>
       <th>Access role</th>
-
-      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -20,7 +18,7 @@
       <td><%= calendar.access_role || "N/A" %></td>
 
       <td class="text-right">
-        <%= button "Pick", to: "/calendars/pick/#{calendar.id}", class: "btn btn-default btn-xs" %>
+        <%= link "Show", to: calendar_path(@conn, :show, calendar), class: "btn btn-default btn-xs" %>
       </td>
     </tr>
 <% end %>

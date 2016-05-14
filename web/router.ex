@@ -17,14 +17,14 @@ defmodule MeetingStories.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
-
-
-
-    post "/calendars/pick/:cal_id", CalendarController, :pick
-    get "/calendars/fetch", CalendarController, :fetch
-
     resources "/calendars", CalendarController, only: [:index, :show]
-    resources "/events", EventController, only: [:index, :show]
+  end
+
+  scope "/sync", MeetingStories do
+    pipe_through :browser
+
+    post "/calendars", SyncController, :calendars
+    post "/calendars/:calendar_id", SyncController, :calendar_events
   end
 
   scope "/auth", MeetingStories do

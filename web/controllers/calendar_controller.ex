@@ -2,7 +2,7 @@ defmodule MeetingStories.CalendarController do
   use MeetingStories.Web, :controller
   alias MeetingStories.Calendar
   alias MeetingStories.Event
-  alias MeetingStories.CalendarFetcher
+  import Ecto.Query
 
   plug :put_layout, "dashboard.html"
   plug MeetingStories.Plug.Authenticate
@@ -13,97 +13,29 @@ defmodule MeetingStories.CalendarController do
     render(conn, "index.html", calendars: calendars)
   end
 
-  def fetch(conn, _params) do
-    current_user = get_session(conn, :current_user)
-
-    if current_user do
-      calendars = CalendarFetcher.fetch_calendars(current_user.token)
-
-      for cal <- calendars["items"] do
-
-        data = %{
-          user_id: current_user.id,
-          origin_id: cal["id"],
-          summary: cal["summary"],
-          time_zone: cal["timeZone"],
-          access_role: cal["accessRole"]
-        }
-
-        %Calendar{}
-        |> Calendar.changeset(data)
-        |> Repo.insert()
-      end
-    end
-
-    conn |> redirect(to: "/calendars")
-  end
-
-  def pick(conn, params) do
-    current_user = get_session(conn, :current_user)
-    cal_id = params["cal_id"]
-
-    if current_user && cal_id do
-      calendar = Repo.get!(Calendar, cal_id)
-      events = CalendarFetcher.fetch_events(current_user.token, calendar.origin_id)
-
-      for ev <- events["items"] do
-
-        event = Repo.get_by(Event, origin_id: ev["id"])
-
-        starts_at_raw = ev["start"]["dateTime"]
-        ends_at_raw = ev["end"]["dateTime"]
-        origin_created_at_raw = ev["created"]
-        origin_updated_at_raw = ev["updated"]
-
-        if origin_created_at_raw do
-          {:ok, origin_created_at } = Timex.parse(origin_created_at_raw, "{ISO:Extended}")
-        else
-          origin_created_at = nil
-        end
-
-        if origin_updated_at_raw do
-          {:ok, origin_updated_at } = Timex.parse(origin_updated_at_raw, "{ISO:Extended}")
-        else
-          origin_updated_at = nil
-        end
-
-        if starts_at_raw do
-          {:ok, starts_at }   = Timex.parse(starts_at_raw, "{ISO:Extended}")
-        else
-          starts_at = nil
-        end
-
-        if ends_at_raw do
-          {:ok, ends_at }   = Timex.parse(ends_at_raw, "{ISO:Extended}")
-        else
-          ends_at = nil
-        end
-
-        data = %{
-          calendar_id: calendar.id,
-          origin_id: ev["id"],
-          summary: ev["summary"],
-          status: ev["status"],
-          origin_created_at: origin_created_at,
-          origin_updated_at: origin_updated_at,
-          starts_at: starts_at,
-          ends_at: ends_at
-        }
-
-        case event do
-          nil  -> %Event{}
-          e -> e
-        end
-        |> Event.changeset(data)
-        |> Repo.insert_or_update()
-      end
-
-    end
-    conn |> redirect(to: "/events")
-  end
-
   def show(conn, %{"id" => id}) do
+    current_user = conn.assigns.current_user
+
     calendar = Repo.get!(Calendar, id)
-    render(conn, "show.html", calendar: calendar)
+
+    events_query =
+      Event
+      |> join(:inner, [e], c in assoc(e, :calendar))
+      |> join(:inner, [e, c], u in assoc(c, :user))
+      |> where([e, c, u], u.id == ^current_user.id)
+      |> preload([e, c, u], [:calendar])
+      |> conditional_calendar_filter(id)
+
+    events = Repo.all(events_query)
+
+    render(conn, "show.html", calendar: calendar, events: events)
+  end
+  
+  defp conditional_calendar_filter(query, cal_id) do
+    if cal_id do
+      query |> where([e, c, u], e.calendar_id == ^cal_id)
+    else
+      query
+    end
   end
 end

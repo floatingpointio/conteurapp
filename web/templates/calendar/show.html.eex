@@ -1,4 +1,4 @@
-<h2>Show calendar</h2>
+<h2>Calendar</h2>
 
 <ul>
 
@@ -24,5 +24,29 @@
 
 </ul>
 
-<%= link "Edit", to: calendar_path(@conn, :edit, @calendar) %>
-<%= link "Back", to: calendar_path(@conn, :index) %>
+<h3>Events <%= button "Sync", to: "/sync/calendars/#{@calendar.id}", class: "btn btn-default btn-xs" %></h2> 
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Calendar</th>
+      <th>Summary</th>
+      <th>Status</th>
+      <th>Starts at</th>
+      <th>Ends at</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for event <- @events do %>
+    <tr>
+      <td><%= event.calendar.summary %></td>
+      <td><%= event.summary %></td>
+      <td><%= event.status %></td>
+      <td><%= event.starts_at |> timestamp %></td>
+      <td><%= event.ends_at |> timestamp %></td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
