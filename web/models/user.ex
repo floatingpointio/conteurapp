@@ -5,6 +5,10 @@ defmodule MeetingStories.User do
   alias Ecto.Date
   
   schema "users" do
+    has_many :calendars, MeetingStories.Calendar
+    has_many :events, through: [:calendars, :events]
+    
+
     field :name, :string
     field :email, :string
     field :avatar, :string

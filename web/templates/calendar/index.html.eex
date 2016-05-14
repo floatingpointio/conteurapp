@@ -26,5 +26,3 @@
 <% end %>
   </tbody>
 </table>
-
-<%= link "New calendar", to: calendar_path(@conn, :new) %>
