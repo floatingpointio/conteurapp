@@ -23,7 +23,9 @@ defmodule MeetingStories.Router do
   scope "/sync", MeetingStories do
     pipe_through :browser
 
+    get "/calendars", SyncController, :calendars
     post "/calendars", SyncController, :calendars
+    get "/calendars/:calendar_id", SyncController, :calendar_events
     post "/calendars/:calendar_id", SyncController, :calendar_events
   end
 
