@@ -4,6 +4,8 @@ defmodule MeetingStories.SyncController do
 
   alias MeetingStories.Calendar
   alias MeetingStories.Event
+  
+  plug MeetingStories.Plug.Authenticate
 
   def calendars(conn, _params) do
     current_user = get_session(conn, :current_user)
@@ -47,28 +49,24 @@ defmodule MeetingStories.SyncController do
         origin_created_at_raw = ev["created"]
         origin_updated_at_raw = ev["updated"]
 
-        if origin_created_at_raw do
-          {:ok, origin_created_at } = Timex.parse(origin_created_at_raw, "{ISO:Extended}")
-        else
-          origin_created_at = nil
+        origin_created_at = if origin_created_at_raw do
+          {:ok, res } = Timex.parse(origin_created_at_raw, "{ISO:Extended}")
+          res
         end
 
-        if origin_updated_at_raw do
-          {:ok, origin_updated_at } = Timex.parse(origin_updated_at_raw, "{ISO:Extended}")
-        else
-          origin_updated_at = nil
+        origin_updated_at = if origin_updated_at_raw do
+          {:ok, res } = Timex.parse(origin_updated_at_raw, "{ISO:Extended}")
+          res
         end
 
-        if starts_at_raw do
-          {:ok, starts_at }   = Timex.parse(starts_at_raw, "{ISO:Extended}")
-        else
-          starts_at = nil
+        starts_at = if starts_at_raw do
+          {:ok, res } = Timex.parse(starts_at_raw, "{ISO:Extended}")
+          res
         end
 
-        if ends_at_raw do
-          {:ok, ends_at }   = Timex.parse(ends_at_raw, "{ISO:Extended}")
-        else
-          ends_at = nil
+        ends_at = if ends_at_raw do
+          {:ok, res } = Timex.parse(ends_at_raw, "{ISO:Extended}")
+          res
         end
 
         data = %{

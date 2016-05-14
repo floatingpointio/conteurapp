@@ -10,6 +10,7 @@ defmodule MeetingStories.Router do
   end
 
   pipeline :api do
+    plug :fetch_session
     plug :accepts, ["json"]
   end
 
@@ -33,6 +34,7 @@ defmodule MeetingStories.Router do
     pipe_through :api
 
     get "/calendars/:calendar_id/events", CalendarController, :events
+    resources "/stories", StoryController
   end
 
   scope "/auth", MeetingStories do

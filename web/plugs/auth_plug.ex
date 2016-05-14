@@ -7,6 +7,7 @@ defmodule MeetingStories.Plug.Authenticate do
 
   def call(conn, default) do
     current_user = get_session(conn, :current_user)
+
     if current_user do
       assign(conn, :current_user, current_user)
     else
