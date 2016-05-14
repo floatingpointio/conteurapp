@@ -5,6 +5,7 @@ defmodule MeetingStories.CalendarController do
   alias MeetingStories.Event
   alias MeetingStories.CalendarFetcher
 
+  plug :put_layout, "dashboard.html"
   plug :scrub_params, "calendar" when action in [:create, :update]
 
   def index(conn, _params) do
@@ -40,7 +41,7 @@ defmodule MeetingStories.CalendarController do
   def pick(conn, params) do
     current_user = get_session(conn, :current_user)
     cal_id = params["cal_id"]
-    
+
     if current_user && cal_id do
       calendar = Repo.get!(Calendar, cal_id)
       events = CalendarFetcher.fetch_events(current_user.token, calendar.origin_id)
@@ -63,7 +64,7 @@ defmodule MeetingStories.CalendarController do
         else
           origin_updated_at = nil
         end
-        
+
         if starts_at_raw do
           {:ok, starts_at }   = Timex.parse(starts_at_raw, "{ISO:Extended}")
         else
