@@ -2,7 +2,7 @@ defmodule MeetingStories.Event do
   use MeetingStories.Web, :model
 
   schema "events" do
-    belongs_to :calendar, ChargingIo.Calendar
+    belongs_to :calendar, MeetingStories.Calendar
 
     field :origin_id, :string
     field :summary, :string

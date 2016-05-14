@@ -1,5 +1,7 @@
 defmodule MeetingStories.EventController do
   use MeetingStories.Web, :controller
+  alias MeetingStories.User
+  alias MeetingStories.Calendar
   alias MeetingStories.Event
   import Ecto.Query
 
@@ -7,13 +9,17 @@ defmodule MeetingStories.EventController do
   plug :scrub_params, "event" when action in [:create, :update]
 
   def index(conn, params) do
+    current_user = conn.assigns.current_user
     cal_id = params["calendar_id"]
 
-    query = if cal_id do
-      Event |> where([e], e.calendar_id == ^cal_id)
-    else
+    query =
       Event
-    end
+      |> join(:inner, [e], c in assoc(e, :calendar))
+      |> join(:inner, [e, c], u in assoc(c, :user))
+      |> where([e, c, u], u.id == ^current_user.id)
+      |> preload([e, c, u], [:calendar])
+
+      # |> if cal_id, do: where([e, c, u], e.calendar_id == ^cal_id), else: nil
 
     events = Repo.all(query)
     render(conn, "index.html", events: events)
