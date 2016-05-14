@@ -29,6 +29,12 @@ defmodule MeetingStories.Router do
     post "/calendars/:calendar_id", SyncController, :calendar_events
   end
 
+  scope "/api", MeetingStories.Api do
+    pipe_through :api
+
+    get "/calendars/:calendar_id/events", CalendarController, :events
+  end
+
   scope "/auth", MeetingStories do
     pipe_through :browser
 
