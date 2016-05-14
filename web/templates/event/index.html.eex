@@ -7,8 +7,6 @@
       <th>Origin</th>
       <th>Summary</th>
       <th>Status</th>
-      <th>Origin created at</th>
-      <th>Origin updated at</th>
       <th>Starts at</th>
       <th>Ends at</th>
 
@@ -22,16 +20,8 @@
       <td><%= event.origin_id %></td>
       <td><%= event.summary %></td>
       <td><%= event.status %></td>
-      <td><%= event.origin_created_at %></td>
-      <td><%= event.origin_updated_at %></td>
-      <td><%= event.starts_at %></td>
-      <td><%= event.ends_at %></td>
-
-      <td class="text-right">
-        <%= link "Show", to: event_path(@conn, :show, event), class: "btn btn-default btn-xs" %>
-        <%= link "Edit", to: event_path(@conn, :edit, event), class: "btn btn-default btn-xs" %>
-        <%= link "Delete", to: event_path(@conn, :delete, event), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
-      </td>
+      <td><%= event.starts_at |> timestamp %></td>
+      <td><%= event.ends_at |> timestamp %></td>
     </tr>
 <% end %>
   </tbody>

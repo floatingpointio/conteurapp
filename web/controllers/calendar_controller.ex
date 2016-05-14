@@ -47,6 +47,8 @@ defmodule MeetingStories.CalendarController do
 
       for ev <- events["items"] do
 
+        event = Repo.get_by(Event, origin_id: ev["id"])
+
         starts_at_raw = ev["start"]["dateTime"]
         ends_at_raw = ev["end"]["dateTime"]
         origin_created_at_raw = ev["created"]
@@ -63,7 +65,7 @@ defmodule MeetingStories.CalendarController do
         else
           origin_updated_at = nil
         end
-        
+
         if starts_at_raw do
           {:ok, starts_at }   = Timex.parse(starts_at_raw, "{ISO:Extended}")
         else
@@ -76,7 +78,7 @@ defmodule MeetingStories.CalendarController do
           ends_at = nil
         end
 
-        %Event{
+        data = %{
           calendar_id: calendar.id,
           origin_id: ev["id"],
           summary: ev["summary"],
@@ -86,12 +88,17 @@ defmodule MeetingStories.CalendarController do
           starts_at: starts_at,
           ends_at: ends_at
         }
-        |> Event.changeset
+
+        case event do
+          nil  -> %Event{}
+          e -> e
+        end
+        |> Event.changeset(data)
         |> Repo.insert_or_update()
       end
-    end
 
-    conn |> redirect(to: "/calendars")
+    end
+    conn |> redirect(to: "/events")
   end
 
   def new(conn, _params) do
