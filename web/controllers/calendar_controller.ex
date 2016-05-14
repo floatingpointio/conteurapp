@@ -1,10 +1,10 @@
 defmodule MeetingStories.CalendarController do
   use MeetingStories.Web, :controller
-
   alias MeetingStories.Calendar
   alias MeetingStories.Event
   alias MeetingStories.CalendarFetcher
 
+  plug MeetingStories.Plug.Authenticate
   plug :scrub_params, "calendar" when action in [:create, :update]
 
   def index(conn, _params) do

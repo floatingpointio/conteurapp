@@ -1,10 +1,9 @@
 defmodule MeetingStories.EventController do
   use MeetingStories.Web, :controller
-
   alias MeetingStories.Event
-
   import Ecto.Query
 
+  plug MeetingStories.Plug.Authenticate
   plug :scrub_params, "event" when action in [:create, :update]
 
   def index(conn, params) do
