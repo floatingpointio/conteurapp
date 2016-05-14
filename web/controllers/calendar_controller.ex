@@ -15,10 +15,6 @@ defmodule MeetingStories.CalendarController do
   def fetch(conn, _params) do
     current_user = get_session(conn, :current_user)
 
-    IO.puts "_____________________________________"
-    IO.inspect current_user
-    IO.puts "_____________________________________"
-
     if current_user do
       calendars = CalendarFetcher.fetch_calendars(current_user.token)
 
@@ -33,7 +29,7 @@ defmodule MeetingStories.CalendarController do
 
         %Calendar{}
         |> Calendar.changeset(data)
-        |> Repo.insert!()
+        |> Repo.insert()
       end
     end
 

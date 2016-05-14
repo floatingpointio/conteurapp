@@ -17,7 +17,7 @@
       <td><%= calendar.origin_id %></td>
       <td><%= calendar.summary %></td>
       <td><%= calendar.time_zone %></td>
-      <td><%= calendar.access_role %></td>
+      <td><%= calendar.access_role || "N/A" %></td>
 
       <td class="text-right">
         <%= link "Pick", to: calendar_path(@conn, :show, calendar), class: "btn btn-default btn-xs" %>
