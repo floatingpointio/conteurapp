@@ -14,7 +14,9 @@
     <div class="panel panel-default">
       <div class="panel-heading">Group view</div>
       <div class="panel-body">
-        Lorem ipsum
+        <ul id="selected-events" data-calendar-id="<%= @calendar.id %>">
+        </ul>
+        <a id="selected-events-save-btn"  href="javascript://" class="btn btn-default btn-primary">Save</a>
       </div>
     </div>
   </div>
