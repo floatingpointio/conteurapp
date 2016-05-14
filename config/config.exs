@@ -6,7 +6,7 @@
 use Mix.Config
 
 # Configures the endpoint
-config :meetingstories, MeetingStories.Endpoint,
+config :meeting_stories, MeetingStories.Endpoint,
   url: [host: "localhost"],
   root: Path.dirname(__DIR__),
   secret_key_base: "J2/j9c4JhMsO7CzfvJa7sJn1dHvQRDLgRqYKYRHaWcCgxnYlLfGoKII5o2IIG580",

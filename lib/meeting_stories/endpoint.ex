@@ -1,5 +1,5 @@
 defmodule MeetingStories.Endpoint do
-  use Phoenix.Endpoint, otp_app: :meetingstories
+  use Phoenix.Endpoint, otp_app: :meeting_stories
 
   socket "/socket", MeetingStories.UserSocket
 
@@ -8,7 +8,7 @@ defmodule MeetingStories.Endpoint do
   # You should set gzip to true if you are running phoenix.digest
   # when deploying your static files in production.
   plug Plug.Static,
-    at: "/", from: :meetingstories, gzip: false,
+    at: "/", from: :meeting_stories, gzip: false,
     only: ~w(css fonts images js favicon.ico robots.txt)
 
   # Code reloading can be explicitly enabled under the
