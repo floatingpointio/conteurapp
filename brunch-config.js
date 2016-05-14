@@ -66,6 +66,9 @@ exports.config = {
   npm: {
     enabled: true,
     whitelist: ["phoenix", "phoenix_html"],
-    styles: { bootstrap: ["dist/css/bootstrap.css"] }
+    styles: {
+      bootstrap: ["dist/css/bootstrap.css"],
+      fullcalendar: ["dist/fullcalendar.css"]
+    }
   }
 }
