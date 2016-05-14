@@ -4,6 +4,8 @@ defmodule MeetingStories.SyncController do
 
   alias MeetingStories.Calendar
   alias MeetingStories.Event
+  
+  plug MeetingStories.Plug.Authenticate
 
   def calendars(conn, _params) do
     current_user = get_session(conn, :current_user)

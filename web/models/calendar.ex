@@ -4,6 +4,7 @@ defmodule MeetingStories.Calendar do
   schema "calendars" do
     belongs_to :user, MeetingStories.User
     has_many :events, MeetingStories.Event
+    has_many :stories, MeetingStories.Story
 
     field :origin_id, :string
     field :summary, :string
