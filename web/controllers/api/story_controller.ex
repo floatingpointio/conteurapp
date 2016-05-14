@@ -1,4 +1,4 @@
-defmodule MeetingStories.StoryController do
+defmodule MeetingStories.Api.StoryController do
   use MeetingStories.Web, :controller
 
   alias MeetingStories.Story
@@ -15,7 +15,7 @@ defmodule MeetingStories.StoryController do
     calendar = Repo.get!(Calendar, calendar_id)
     render(conn, "index.json", stories: calendar.stories)
   end
-  
+
   def show(conn, %{"id" => id}) do
     story = Repo.get!(Story, id) |> Repo.preload(:events)
     event_ids = Enum.map story.events, fn(e) -> e.id end
@@ -32,7 +32,7 @@ defmodule MeetingStories.StoryController do
     story_events_data = Enum.map story_params["event_ids"], fn(ev_id) ->
       %StoryEvent{event_id: ev_id}
     end
-    
+
     result = Repo.transaction(fn ->
       case (story_data |> Story.changeset(%{}) |> Repo.insert) do
         {:ok, story } -> {story, Enum.map(story_events_data, fn(sed) ->
@@ -48,7 +48,7 @@ defmodule MeetingStories.StoryController do
     case result do
       {:ok, {story, stories}} ->
 
-        event_ids = Enum.map stories, fn(tup) -> 
+        event_ids = Enum.map stories, fn(tup) ->
           {:ok, ev} = tup
           ev.id
         end
