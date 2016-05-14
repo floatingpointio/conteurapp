@@ -1,19 +1,30 @@
-<div class="jumbotron">
-  <h2>Better tracking of your meetings</h2>
-  <p class="lead">
-    MeetingStories helps you to save time by keeping your meeting schedule <b>clean</b>, <b>organized</b> and easily <b>accessible</b>.
-  </p>
+<div class="row">
+  <div class="col-sm-4 col-sm-offset-4 text-center">
+    <div class="logo">
+      <img alt="Logo" src="/images/meetingstories_logo.png" class="img-responsive" />
+    </div>
+  </div>
+</div>
 
-  <%= if @current_user do %>
-    <h2>Welcome, <%= @current_user.name %>!</h2>
-    <img src="<%= @current_user.avatar %>" class="img-circle"/>
-    <%= link "Logout", to: auth_path(@conn, :delete), method: :delete, class: "btn btn-danger" %>
-    <br>
-  <% else %>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3 text-center">
 
-    <a class="btn btn-primary btn-lg" href="/auth/google">
-      <i class="fa fa-google"></i>
-      Sign in with Google
-    </a>
-  <% end %>
+    <h2>Better tracking of your meetings</h2>
+    <p class="lead">
+      MeetingStories helps you to save time by keeping your meeting schedule <b>clean</b>, <b>organized</b> and easily <b>accessible</b>.
+    </p>
+
+    <%= if @current_user do %>
+      <h2>Welcome, <%= @current_user.name %>!</h2>
+      <img src="<%= @current_user.avatar %>" class="img-circle"/>
+      <%= link "Logout", to: auth_path(@conn, :delete), method: :delete, class: "btn btn-danger" %>
+      <br>
+    <% else %>
+
+      <a class="btn btn-primary btn-lg" href="/auth/google">
+        <i class="fa fa-google"></i>
+        Sign in with Google
+      </a>
+    <% end %>
+  </div>
 </div>
