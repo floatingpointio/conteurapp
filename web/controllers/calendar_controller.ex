@@ -23,6 +23,7 @@ defmodule MeetingStories.CalendarController do
       |> join(:inner, [e], c in assoc(e, :calendar))
       |> join(:inner, [e, c], u in assoc(c, :user))
       |> where([e, c, u], u.id == ^current_user.id)
+      |> where([e, c, u], not(is_nil(e.starts_at)) and not(is_nil(e.ends_at)))
       |> preload([e, c, u], [:calendar])
       |> conditional_calendar_filter(id)
 
