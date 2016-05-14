@@ -1,0 +1,28 @@
+<h2>Show calendar</h2>
+
+<ul>
+
+  <li>
+    <strong>Origin:</strong>
+    <%= @calendar.origin_id %>
+  </li>
+
+  <li>
+    <strong>Summary:</strong>
+    <%= @calendar.summary %>
+  </li>
+
+  <li>
+    <strong>Time zone:</strong>
+    <%= @calendar.time_zone %>
+  </li>
+
+  <li>
+    <strong>Access role:</strong>
+    <%= @calendar.access_role %>
+  </li>
+
+</ul>
+
+<%= link "Edit", to: calendar_path(@conn, :edit, @calendar) %>
+<%= link "Back", to: calendar_path(@conn, :index) %>

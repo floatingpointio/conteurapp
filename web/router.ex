@@ -17,6 +17,9 @@ defmodule MeetingStories.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
+
+    resources "/calendars", CalendarController
+    resources "/events", EventController
   end
 
   scope "/auth", MeetingStories do

@@ -1,0 +1,48 @@
+<h2>Show event</h2>
+
+<ul>
+
+  <li>
+    <strong>Calendar:</strong>
+    <%= @event.calendar_id %>
+  </li>
+
+  <li>
+    <strong>Origin:</strong>
+    <%= @event.origin_id %>
+  </li>
+
+  <li>
+    <strong>Summary:</strong>
+    <%= @event.summary %>
+  </li>
+
+  <li>
+    <strong>Status:</strong>
+    <%= @event.status %>
+  </li>
+
+  <li>
+    <strong>Origin created at:</strong>
+    <%= @event.origin_created_at %>
+  </li>
+
+  <li>
+    <strong>Origin updated at:</strong>
+    <%= @event.origin_updated_at %>
+  </li>
+
+  <li>
+    <strong>Starts at:</strong>
+    <%= @event.starts_at %>
+  </li>
+
+  <li>
+    <strong>Ends at:</strong>
+    <%= @event.ends_at %>
+  </li>
+
+</ul>
+
+<%= link "Edit", to: event_path(@conn, :edit, @event) %>
+<%= link "Back", to: event_path(@conn, :index) %>

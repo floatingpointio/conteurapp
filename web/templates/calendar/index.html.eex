@@ -1,0 +1,32 @@
+<h2>Listing calendars</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Origin</th>
+      <th>Summary</th>
+      <th>Time zone</th>
+      <th>Access role</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for calendar <- @calendars do %>
+    <tr>
+      <td><%= calendar.origin_id %></td>
+      <td><%= calendar.summary %></td>
+      <td><%= calendar.time_zone %></td>
+      <td><%= calendar.access_role %></td>
+
+      <td class="text-right">
+        <%= link "Show", to: calendar_path(@conn, :show, calendar), class: "btn btn-default btn-xs" %>
+        <%= link "Edit", to: calendar_path(@conn, :edit, calendar), class: "btn btn-default btn-xs" %>
+        <%= link "Delete", to: calendar_path(@conn, :delete, calendar), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<%= link "New calendar", to: calendar_path(@conn, :new) %>
