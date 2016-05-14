@@ -1,12 +1,13 @@
 {
-  "repository": {
-  },
+  "repository": {},
   "dependencies": {
     "babel-brunch": "^6.0.0",
+    "bootstrap": "^3.3.6",
     "brunch": "^2.0.0",
     "clean-css-brunch": ">= 1.0 < 1.8",
     "css-brunch": ">= 1.0 < 1.8",
     "javascript-brunch": ">= 1.0 < 1.8",
+    "jquery": "^2.2.3",
     "uglify-js-brunch": ">= 1.0 < 1.8"
   }
 }
