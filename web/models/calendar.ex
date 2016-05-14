@@ -2,6 +2,7 @@ defmodule MeetingStories.Calendar do
   use MeetingStories.Web, :model
 
   schema "calendars" do
+    field :user_id, :integer
     field :origin_id, :string
     field :summary, :string
     field :time_zone, :string
@@ -10,7 +11,7 @@ defmodule MeetingStories.Calendar do
     timestamps
   end
 
-  @required_fields ~w(origin_id summary time_zone access_role)
+  @required_fields ~w(user_id origin_id summary time_zone)
   @optional_fields ~w()
 
   @doc """

@@ -3,7 +3,7 @@
 <table class="table">
   <thead>
     <tr>
-      <th>Origin</th>
+      <th>Origin ID</th>
       <th>Summary</th>
       <th>Time zone</th>
       <th>Access role</th>
@@ -20,9 +20,7 @@
       <td><%= calendar.access_role %></td>
 
       <td class="text-right">
-        <%= link "Show", to: calendar_path(@conn, :show, calendar), class: "btn btn-default btn-xs" %>
-        <%= link "Edit", to: calendar_path(@conn, :edit, calendar), class: "btn btn-default btn-xs" %>
-        <%= link "Delete", to: calendar_path(@conn, :delete, calendar), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
+        <%= link "Pick", to: calendar_path(@conn, :show, calendar), class: "btn btn-default btn-xs" %>
       </td>
     </tr>
 <% end %>

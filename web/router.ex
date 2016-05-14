@@ -17,6 +17,7 @@ defmodule MeetingStories.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
+    get "/calendars/fetch", CalendarController, :fetch
 
     resources "/calendars", CalendarController
     resources "/events", EventController

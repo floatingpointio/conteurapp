@@ -20,19 +20,19 @@ defmodule MeetingStories.UserFromAuth do
     if user = Repo.get_by(User, uid: auth.uid) do
       {:ok, auth |> update_user(user) |> basic_info}
     else
-      {:ok, auth |> create_user |> basic_info}
+      {:ok, auth |> insert_user |> basic_info}
     end
   end
   
   defp basic_info(%User{} = user) do
-    %{ id: user.uid, name: user.name, avatar: user.avatar }
+    %{ id: user.id, uid: user.uid, name: user.name, avatar: user.avatar, token: user.token}
   end
 
   defp basic_info(%Auth{} = auth) do
-    %{ id: auth.uid, name: name_from_auth(auth), avatar: auth.info.image }
+    %{ uid: auth.uid, name: name_from_auth(auth), avatar: auth.info.image }
   end
   
-  def create_user(%Auth{} = auth) do
+  def insert_user(%Auth{} = auth) do
     expires_at =
       auth.credentials.expires_at
       |> from_timestamp
