@@ -1,5 +1,13 @@
-defmodule UserFromAuth do
+defmodule MeetingStories.UserFromAuth do
+  alias MeetingStories.Repo
+  alias MeetingStories.Changeset
+
+  alias MeetingStories.User
+
   alias Ueberauth.Auth
+
+  import Ecto.Changeset
+  import MeetingStories.UnixTsConvert
 
   def find_or_create(%Auth{provider: :identity} = auth) do
     case validate_pass(auth.credentials) do
@@ -9,12 +17,57 @@ defmodule UserFromAuth do
   end
 
   def find_or_create(%Auth{} = auth) do
-    IO.inspect auth
-    {:ok, basic_info(auth)}
+    if user = Repo.get_by(User, uid: auth.uid) do
+      {:ok, auth |> update_user(user) |> basic_info}
+    else
+      {:ok, auth |> create_user |> basic_info}
+    end
+  end
+  
+  defp basic_info(%User{} = user) do
+    %{ id: user.uid, name: user.name, avatar: user.avatar }
   end
 
-  defp basic_info(auth) do
-    %{id: auth.uid, name: name_from_auth(auth), avatar: auth.info.image}
+  defp basic_info(%Auth{} = auth) do
+    %{ id: auth.uid, name: name_from_auth(auth), avatar: auth.info.image }
+  end
+  
+  def create_user(%Auth{} = auth) do
+    expires_at =
+      auth.credentials.expires_at
+      |> from_timestamp
+      |> Ecto.DateTime.from_erl
+
+    data = %{
+      email: auth.info.email,
+      name: name_from_auth(auth),
+      uid: auth.uid,
+      token: auth.credentials.token,
+      refresh_token: auth.credentials.refresh_token,
+      token_expires_at: expires_at
+    }
+
+    %User{}
+    |> User.changeset(data)
+    |> Repo.insert!()
+  end
+
+  def update_user(%Auth{} = auth, %User{} = user) do
+    expires_at =
+      auth.credentials.expires_at
+      |> from_timestamp
+      |> Ecto.DateTime.from_erl
+
+    changeset = change(user, %{
+      email: auth.info.email,
+      name: name_from_auth(auth),
+      uid: auth.uid,
+      token: auth.credentials.token,
+      refresh_token: auth.credentials.refresh_token,
+      token_expires_at: expires_at
+    })
+
+    changeset |> Repo.update!()
   end
 
   defp name_from_auth(auth) do

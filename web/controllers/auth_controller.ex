@@ -3,6 +3,7 @@ defmodule MeetingStories.AuthController do
   plug Ueberauth
 
   alias Ueberauth.Strategy.Helpers
+  alias MeetingStories.UserFromAuth
 
   def request(conn, _params) do
     render(conn, "request.html", callback_url: Helpers.callback_url(conn))
@@ -15,6 +16,10 @@ defmodule MeetingStories.AuthController do
   end
 
   def callback(%{assigns: %{ueberauth_auth: auth}} = conn, _params) do
+    IO.puts "_____________________"
+    IO.inspect auth
+    IO.puts "_____________________"
+
     case UserFromAuth.find_or_create(auth) do
       {:ok, user} ->
         conn

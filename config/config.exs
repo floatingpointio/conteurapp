@@ -30,5 +30,8 @@ config :phoenix, :generators,
 
 config :ueberauth, Ueberauth,
   providers: [
-    google: { Ueberauth.Strategy.Google, [default_scope: "profile https://www.googleapis.com/auth/calendar"] }
+    google: { Ueberauth.Strategy.Google, [
+        default_scope: "email profile https://www.googleapis.com/auth/calendar",
+        access_type: "offline"
+      ]}
   ]
