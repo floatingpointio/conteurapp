@@ -1,9 +1,7 @@
 <div class="jumbotron">
-  <h2>Überauth + Phoenix Example</h2>
+  <h2>Better tracking of your meetings</h2>
   <p class="lead">
-  This is an application to show an example of how to wire up
-  <a href="https://github.com/ueberauth/ueberauth">Überauth</a> with
-  <a href="https://github.com/phoenixframework/phoenix">Phoenix</a>.
+    MeetingStories helps you to save time by keeping your meeting schedule <b>clean</b>, <b>organized</b> and easily <b>accessible</b>.
   </p>
 
   <%= if @current_user do %>
