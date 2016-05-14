@@ -1,4 +1,6 @@
-<h2>Calendars <%= button "Sync", to: "/sync/calendars", class: "btn btn-default btn-xs" %></h2> 
+<h2>Calendars</h2>
+
+<%= button "Sync", to: "/sync/calendars", class: "btn btn-default btn-primary pull-right" %></h2>
 
 <table class="table">
   <thead>
@@ -12,13 +14,12 @@
   <tbody>
 <%= for calendar <- @calendars do %>
     <tr>
-      <td><%= calendar.origin_id %></td>
+      <td><%= link calendar.origin_id, to: calendar_path(@conn, :show, calendar) %></td>
       <td><%= calendar.summary %></td>
       <td><%= calendar.time_zone %></td>
       <td><%= calendar.access_role || "N/A" %></td>
 
       <td class="text-right">
-        <%= link "Show", to: calendar_path(@conn, :show, calendar), class: "btn btn-default btn-xs" %>
       </td>
     </tr>
 <% end %>

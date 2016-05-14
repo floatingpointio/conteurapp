@@ -1,52 +1,21 @@
-<h2>Calendar</h2>
+<div class="row">
+  <div class="col-md-12">
+    <%= button "Sync events", to: "/sync/calendars/#{@calendar.id}", class: "btn btn-default btn-primary pull-right" %></h2>
+    <h2><%= @calendar.origin_id %></h2>
+  </div>
+</div>
 
-<ul>
-
-  <li>
-    <strong>Origin:</strong>
-    <%= @calendar.origin_id %>
-  </li>
-
-  <li>
-    <strong>Summary:</strong>
-    <%= @calendar.summary %>
-  </li>
-
-  <li>
-    <strong>Time zone:</strong>
-    <%= @calendar.time_zone %>
-  </li>
-
-  <li>
-    <strong>Access role:</strong>
-    <%= @calendar.access_role %>
-  </li>
-
-</ul>
-
-<h3>Events <%= button "Sync", to: "/sync/calendars/#{@calendar.id}", class: "btn btn-default btn-xs" %></h2> 
-
-<table class="table">
-  <thead>
-    <tr>
-      <th>Calendar</th>
-      <th>Summary</th>
-      <th>Status</th>
-      <th>Starts at</th>
-      <th>Ends at</th>
-
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-<%= for event <- @events do %>
-    <tr>
-      <td><%= event.calendar.summary %></td>
-      <td><%= event.summary %></td>
-      <td><%= event.status %></td>
-      <td><%= event.starts_at |> timestamp %></td>
-      <td><%= event.ends_at |> timestamp %></td>
-    </tr>
-<% end %>
-  </tbody>
-</table>
+<div class="row events-triage">
+  <div class="col-md-8 calendar-view">
+    <div class="calendar" data-calendar-id="<%= @calendar.id %>">
+    </div>
+  </div>
+  <div class="col-md-4 group-view">
+    <div class="panel panel-default">
+      <div class="panel-heading">Group view</div>
+      <div class="panel-body">
+        Lorem ipsum
+      </div>
+    </div>
+  </div>
+</div>

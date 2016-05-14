@@ -33,7 +33,7 @@ defmodule MeetingStories.Router do
   scope "/api", MeetingStories.Api do
     pipe_through :api
 
-    get "/calendars/:calendar_id/events", CalendarController, :events
+    get "/calendars/events", CalendarController, :events
     resources "/stories", StoryController
   end
 
