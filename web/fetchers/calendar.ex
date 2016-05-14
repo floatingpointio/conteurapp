@@ -1,4 +1,5 @@
 defmodule MeetingStories.CalendarFetcher do
+
   alias Ecto.DateTime
   alias Ecto.Date
 
@@ -11,8 +12,9 @@ defmodule MeetingStories.CalendarFetcher do
   end
 
   def fetch_events(token, cal_id) do
+    url_encoded_cal_id = URI.encode(cal_id)
     response =
-      "https://www.googleapis.com/calendar/v3/calendars/#{URI.encode(cal_id)}/events?key=#{api_key}"
+      "https://www.googleapis.com/calendar/v3/calendars/#{url_encoded_cal_id}/events?key=#{api_key}"
       |> HTTPoison.get!(headers(token))
 
     response.body |> Poison.decode!

@@ -2,7 +2,8 @@ defmodule MeetingStories.Calendar do
   use MeetingStories.Web, :model
 
   schema "calendars" do
-    field :user_id, :integer
+    belongs_to :user, ChargingIo.User
+
     field :origin_id, :string
     field :summary, :string
     field :time_zone, :string

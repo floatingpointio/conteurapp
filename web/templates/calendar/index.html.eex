@@ -20,7 +20,7 @@
       <td><%= calendar.access_role || "N/A" %></td>
 
       <td class="text-right">
-        <%= link "Pick", to: calendar_path(@conn, :show, calendar), class: "btn btn-default btn-xs" %>
+        <%= button "Pick", to: "/calendars/pick/#{calendar.id}", class: "btn btn-default btn-xs" %>
       </td>
     </tr>
 <% end %>

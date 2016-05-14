@@ -10,31 +10,6 @@ defmodule MeetingStories.EventController do
     render(conn, "index.html", events: events)
   end
 
-  def fetch(conn, _params) do
-    current_user = get_session(conn, :current_user)
-
-    if current_user do
-      calendars = CalendarFetcher.fetch_calendars(current_user.token)
-
-      for cal <- calendars["items"] do
-        data = %{
-          user_id: current_user.id,
-          origin_id: cal["id"],
-          summary: cal["summary"],
-          time_zone: cal["timeZone"],
-          access_role: cal["accessRole"]
-        }
-
-        %Calendar{}
-        |> Calendar.changeset(data)
-        |> Repo.insert()
-      end
-    end
-
-    conn |> redirect(to: "/calendars")
-  end
-  
-
   def new(conn, _params) do
     changeset = Event.changeset(%Event{})
     render(conn, "new.html", changeset: changeset)

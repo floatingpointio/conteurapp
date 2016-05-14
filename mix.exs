@@ -24,6 +24,7 @@ defmodule MeetingStories.Mixfile do
         :cowboy,
         :logger,
         :gettext,
+        :timex,
         :phoenix_ecto,
         :postgrex,
         :ueberauth_google
@@ -47,7 +48,9 @@ defmodule MeetingStories.Mixfile do
      {:gettext, "~> 0.9"},
      {:cowboy, "~> 1.0"},
      {:ueberauth, "~> 0.2"},
-     {:ueberauth_google, "~> 0.2"}
+     {:ueberauth_google, "~> 0.2"},
+     {:timex, "~> 2.1"},
+     {:timex_ecto, "~> 1.0"}
    ]
   end
 

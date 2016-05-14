@@ -1,8 +1,8 @@
 defmodule MeetingStories.CalendarController do
   use MeetingStories.Web, :controller
 
-  alias MeetingStories.User
   alias MeetingStories.Calendar
+  alias MeetingStories.Event
   alias MeetingStories.CalendarFetcher
 
   plug :scrub_params, "calendar" when action in [:create, :update]
@@ -19,6 +19,7 @@ defmodule MeetingStories.CalendarController do
       calendars = CalendarFetcher.fetch_calendars(current_user.token)
 
       for cal <- calendars["items"] do
+
         data = %{
           user_id: current_user.id,
           origin_id: cal["id"],
@@ -30,6 +31,63 @@ defmodule MeetingStories.CalendarController do
         %Calendar{}
         |> Calendar.changeset(data)
         |> Repo.insert()
+      end
+    end
+
+    conn |> redirect(to: "/calendars")
+  end
+
+  def pick(conn, params) do
+    current_user = get_session(conn, :current_user)
+    cal_id = params["cal_id"]
+    
+    if current_user && cal_id do
+      calendar = Repo.get!(Calendar, cal_id)
+      events = CalendarFetcher.fetch_events(current_user.token, calendar.origin_id)
+
+      for ev <- events["items"] do
+
+        starts_at_raw = ev["start"]["dateTime"]
+        ends_at_raw = ev["end"]["dateTime"]
+        origin_created_at_raw = ev["created"]
+        origin_updated_at_raw = ev["updated"]
+
+        if origin_created_at_raw do
+          {:ok, origin_created_at } = Timex.parse(origin_created_at_raw, "{ISO:Extended}")
+        else
+          origin_created_at = nil
+        end
+
+        if origin_updated_at_raw do
+          {:ok, origin_updated_at } = Timex.parse(origin_updated_at_raw, "{ISO:Extended}")
+        else
+          origin_updated_at = nil
+        end
+        
+        if starts_at_raw do
+          {:ok, starts_at }   = Timex.parse(starts_at_raw, "{ISO:Extended}")
+        else
+          starts_at = nil
+        end
+
+        if ends_at_raw do
+          {:ok, ends_at }   = Timex.parse(ends_at_raw, "{ISO:Extended}")
+        else
+          ends_at = nil
+        end
+
+        %Event{
+          calendar_id: calendar.id,
+          origin_id: ev["id"],
+          summary: ev["summary"],
+          status: ev["status"],
+          origin_created_at: origin_created_at,
+          origin_updated_at: origin_updated_at,
+          starts_at: starts_at,
+          ends_at: ends_at
+        }
+        |> Event.changeset
+        |> Repo.insert_or_update()
       end
     end
 
