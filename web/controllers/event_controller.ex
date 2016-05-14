@@ -3,10 +3,20 @@ defmodule MeetingStories.EventController do
 
   alias MeetingStories.Event
 
+  import Ecto.Query
+
   plug :scrub_params, "event" when action in [:create, :update]
 
-  def index(conn, _params) do
-    events = Repo.all(Event)
+  def index(conn, params) do
+    cal_id = params["calendar_id"]
+
+    query = if cal_id do
+      Event |> where([e], e.calendar_id == ^cal_id)
+    else
+      Event
+    end
+
+    events = Repo.all(query)
     render(conn, "index.html", events: events)
   end
 
