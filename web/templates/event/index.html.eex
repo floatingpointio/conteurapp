@@ -4,7 +4,6 @@
   <thead>
     <tr>
       <th>Calendar</th>
-      <th>Origin</th>
       <th>Summary</th>
       <th>Status</th>
       <th>Starts at</th>
@@ -16,8 +15,7 @@
   <tbody>
 <%= for event <- @events do %>
     <tr>
-      <td><%= event.calendar_id %></td>
-      <td><%= event.origin_id %></td>
+      <td><%= event.calendar.summary %></td>
       <td><%= event.summary %></td>
       <td><%= event.status %></td>
       <td><%= event.starts_at |> timestamp %></td>
@@ -26,5 +24,3 @@
 <% end %>
   </tbody>
 </table>
-
-<%= link "New event", to: event_path(@conn, :new) %>

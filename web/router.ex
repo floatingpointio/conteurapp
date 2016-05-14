@@ -23,8 +23,8 @@ defmodule MeetingStories.Router do
     post "/calendars/pick/:cal_id", CalendarController, :pick
     get "/calendars/fetch", CalendarController, :fetch
 
-    resources "/calendars", CalendarController
-    resources "/events", EventController
+    resources "/calendars", CalendarController, only: [:index, :show]
+    resources "/events", EventController, only: [:index, :show]
   end
 
   scope "/auth", MeetingStories do
