@@ -1,4 +1,4 @@
-defmodule MeetingStories.UnixTsConvert do
+defmodule ConteurApp.UnixTsConvert do
   epoch = {{1970, 1, 1}, {0, 0, 0}}
   @epoch :calendar.datetime_to_gregorian_seconds(epoch)
 

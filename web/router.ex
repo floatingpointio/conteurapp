@@ -1,5 +1,5 @@
-defmodule MeetingStories.Router do
-  use MeetingStories.Web, :router
+defmodule ConteurApp.Router do
+  use ConteurApp.Web, :router
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -12,16 +12,17 @@ defmodule MeetingStories.Router do
   pipeline :api do
     plug :fetch_session
     plug :accepts, ["json"]
+    plug CORSPlug
   end
 
-  scope "/", MeetingStories do
+  scope "/", ConteurApp do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
     resources "/calendars", CalendarController, only: [:index, :show]
   end
 
-  scope "/sync", MeetingStories do
+  scope "/sync", ConteurApp do
     pipe_through :browser
 
     get "/calendars", SyncController, :calendars
@@ -30,14 +31,17 @@ defmodule MeetingStories.Router do
     post "/calendars/:calendar_id", SyncController, :calendar_events
   end
 
-  scope "/api", MeetingStories.Api do
+  scope "/api", ConteurApp.Api do
     pipe_through :api
+    
 
-    get "/calendars/events", CalendarController, :events
-    resources "/stories", StoryController
+
+    resources "/kurac", KuracController, only: [:index]
+    resources "/events", EventController, only: [:index]
+    resources "/stories", StoryController, only: [:index]
   end
 
-  scope "/auth", MeetingStories do
+  scope "/auth", ConteurApp do
     pipe_through :browser
 
     get "/:provider", AuthController, :request

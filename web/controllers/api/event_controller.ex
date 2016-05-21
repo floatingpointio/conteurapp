@@ -1,13 +1,15 @@
-defmodule MeetingStories.Api.CalendarController do
-  use MeetingStories.Web, :controller
+defmodule ConteurApp.Api.EventController do
+  use ConteurApp.Web, :controller
 
-  alias MeetingStories.Calendar
-  alias MeetingStories.Event
+  alias ConteurApp.Calendar
+  alias ConteurApp.Event
   import Ecto.Query
 
   # plug :scrub_params, "calendar" when action in [:create, :update]
 
-  def events(conn, %{"calendar_id" => id} = params) do
+  def index(conn, params) do
+    id = params["calendar_id"] || 3
+
     events_query =
       Event
       |> join(:inner, [e], c in assoc(e, :calendar))
@@ -17,9 +19,9 @@ defmodule MeetingStories.Api.CalendarController do
 
     events = Repo.all(events_query)
 
-    filtered_events = Enum.map(events, &summarize_event/1)
+    # filtered_events = Enum.map(events, &summarize_event/1)
 
-    json(conn, filtered_events)
+    render(conn, "index.json", events: events)
   end
 
   defp apply_date_range(query, starts_at, ends_at) do
@@ -44,20 +46,5 @@ defmodule MeetingStories.Api.CalendarController do
     else
       query
     end
-  end
-
-  defp summarize_event(event) do
-    %{
-      id: event.id,
-      origin_id: event.origin_id,
-      title: event.summary,
-      start: format_iso8601(event.starts_at),
-      end: format_iso8601(event.ends_at)
-    }
-  end
-
-  defp format_iso8601(datetime) do
-    {:ok, dt} = Timex.Ecto.DateTime.dump datetime
-    Timex.format!(dt, "{ISO:Extended}")
   end
 end

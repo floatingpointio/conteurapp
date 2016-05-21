@@ -1,5 +1,5 @@
-defmodule MeetingStories.EventView do
-  use MeetingStories.Web, :view
+defmodule ConteurApp.EventView do
+  use ConteurApp.Web, :view
 
   def timestamp(ts) do
     if ts do

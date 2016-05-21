@@ -1,11 +1,11 @@
-defmodule MeetingStories.SyncController do
-  use MeetingStories.Web, :controller
-  alias MeetingStories.CalendarFetcher
+defmodule ConteurApp.SyncController do
+  use ConteurApp.Web, :controller
+  alias ConteurApp.CalendarFetcher
 
-  alias MeetingStories.Calendar
-  alias MeetingStories.Event
+  alias ConteurApp.Calendar
+  alias ConteurApp.Event
   
-  plug MeetingStories.Plug.Authenticate
+  plug ConteurApp.Plug.Authenticate
 
   def calendars(conn, _params) do
     current_user = get_session(conn, :current_user)

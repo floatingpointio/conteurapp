@@ -1,9 +1,9 @@
-defmodule MeetingStories.AuthController do
-  use MeetingStories.Web, :controller
+defmodule ConteurApp.AuthController do
+  use ConteurApp.Web, :controller
   plug Ueberauth
 
   alias Ueberauth.Strategy.Helpers
-  alias MeetingStories.UserFromAuth
+  alias ConteurApp.UserFromAuth
 
   def request(conn, _params) do
     render(conn, "request.html", callback_url: Helpers.callback_url(conn))

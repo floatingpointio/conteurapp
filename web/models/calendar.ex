@@ -1,10 +1,10 @@
-defmodule MeetingStories.Calendar do
-  use MeetingStories.Web, :model
+defmodule ConteurApp.Calendar do
+  use ConteurApp.Web, :model
 
   schema "calendars" do
-    belongs_to :user, MeetingStories.User
-    has_many :events, MeetingStories.Event
-    has_many :stories, MeetingStories.Story
+    belongs_to :user, ConteurApp.User
+    has_many :events, ConteurApp.Event
+    has_many :stories, ConteurApp.Story
 
     field :origin_id, :string
     field :summary, :string

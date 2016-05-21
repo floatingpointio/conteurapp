@@ -1,4 +1,4 @@
-defmodule MeetingStories.CalendarFetcher do
+defmodule ConteurApp.CalendarFetcher do
 
   alias Ecto.DateTime
   alias Ecto.Date

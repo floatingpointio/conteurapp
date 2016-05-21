@@ -1,8 +1,8 @@
-defmodule MeetingStories.Event do
-  use MeetingStories.Web, :model
+defmodule ConteurApp.Event do
+  use ConteurApp.Web, :model
 
   schema "events" do
-    belongs_to :calendar, MeetingStories.Calendar
+    belongs_to :calendar, ConteurApp.Calendar
 
     field :origin_id, :string
     field :summary, :string

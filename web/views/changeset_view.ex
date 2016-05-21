@@ -1,11 +1,11 @@
-defmodule MeetingStories.ChangesetView do
-  use MeetingStories.Web, :view
+defmodule ConteurApp.ChangesetView do
+  use ConteurApp.Web, :view
 
   @doc """
   Traverses and translates changeset errors.
 
   See `Ecto.Changeset.traverse_errors/2` and
-  `MeetingStories.ErrorHelpers.translate_error/1` for more details.
+  `ConteurApp.ErrorHelpers.translate_error/1` for more details.
   """
   def translate_errors(changeset) do
     Ecto.Changeset.traverse_errors(changeset, &translate_error/1)

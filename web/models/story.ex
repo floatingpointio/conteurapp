@@ -1,9 +1,9 @@
-defmodule MeetingStories.Story do
-  use MeetingStories.Web, :model
+defmodule ConteurApp.Story do
+  use ConteurApp.Web, :model
 
   schema "stories" do
-    belongs_to :calendar, MeetingStories.Calendar
-    has_many :story_events, MeetingStories.StoryEvent
+    belongs_to :calendar, ConteurApp.Calendar
+    has_many :story_events, ConteurApp.StoryEvent
     has_many :events, through: [:story_events, :event]
     field :description, :string
 

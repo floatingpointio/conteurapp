@@ -1,5 +1,5 @@
-defmodule MeetingStories.ErrorView do
-  use MeetingStories.Web, :view
+defmodule ConteurApp.ErrorView do
+  use ConteurApp.Web, :view
 
   def render("404.html", _assigns) do
     "Page not found"

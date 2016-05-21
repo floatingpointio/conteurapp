@@ -1,12 +1,12 @@
-defmodule MeetingStories.Web do
+defmodule ConteurApp.Web do
   @moduledoc """
   A module that keeps using definitions for controllers,
   views and so on.
 
   This can be used in your application as:
 
-      use MeetingStories.Web, :controller
-      use MeetingStories.Web, :view
+      use ConteurApp.Web, :controller
+      use ConteurApp.Web, :view
 
   The definitions below will be executed for every view,
   controller, etc, so keep them short and clean, focused
@@ -31,12 +31,12 @@ defmodule MeetingStories.Web do
     quote do
       use Phoenix.Controller
 
-      alias MeetingStories.Repo
+      alias ConteurApp.Repo
       import Ecto
       import Ecto.Query, only: [from: 1, from: 2]
 
-      import MeetingStories.Router.Helpers
-      import MeetingStories.Gettext
+      import ConteurApp.Router.Helpers
+      import ConteurApp.Gettext
     end
   end
 
@@ -50,9 +50,9 @@ defmodule MeetingStories.Web do
       # Use all HTML functionality (forms, tags, etc)
       use Phoenix.HTML
 
-      import MeetingStories.Router.Helpers
-      import MeetingStories.ErrorHelpers
-      import MeetingStories.Gettext
+      import ConteurApp.Router.Helpers
+      import ConteurApp.ErrorHelpers
+      import ConteurApp.Gettext
     end
   end
 
@@ -66,10 +66,10 @@ defmodule MeetingStories.Web do
     quote do
       use Phoenix.Channel
 
-      alias MeetingStories.Repo
+      alias ConteurApp.Repo
       import Ecto
       import Ecto.Query, only: [from: 1, from: 2]
-      import MeetingStories.Gettext
+      import ConteurApp.Gettext
     end
   end
 

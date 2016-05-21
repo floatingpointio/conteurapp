@@ -1,6 +1,6 @@
-defmodule MeetingStories.Plug.Authenticate do
+defmodule ConteurApp.Plug.Authenticate do
   import Plug.Conn
-  import MeetingStories.Router.Helpers
+  import ConteurApp.Router.Helpers
   import Phoenix.Controller
 
   def init(default), do: default

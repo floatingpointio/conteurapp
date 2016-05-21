@@ -1,4 +1,4 @@
-defmodule MeetingStories.ErrorHelpers do
+defmodule ConteurApp.ErrorHelpers do
   @moduledoc """
   Conveniences for translating and building error messages.
   """
@@ -26,10 +26,10 @@ defmodule MeetingStories.ErrorHelpers do
     #
     #     dngettext "errors", "1 file", "%{count} files", count
     #
-    Gettext.dngettext(MeetingStories.Gettext, "errors", msg, msg, opts[:count], opts)
+    Gettext.dngettext(ConteurApp.Gettext, "errors", msg, msg, opts[:count], opts)
   end
 
   def translate_error(msg) do
-    Gettext.dgettext(MeetingStories.Gettext, "errors", msg)
+    Gettext.dgettext(ConteurApp.Gettext, "errors", msg)
   end
 end

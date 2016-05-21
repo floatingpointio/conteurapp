@@ -1,11 +1,11 @@
-defmodule MeetingStories.CalendarController do
-  use MeetingStories.Web, :controller
-  alias MeetingStories.Calendar
-  alias MeetingStories.Event
+defmodule ConteurApp.CalendarController do
+  use ConteurApp.Web, :controller
+  alias ConteurApp.Calendar
+  alias ConteurApp.Event
   import Ecto.Query
 
   plug :put_layout, "dashboard.html"
-  plug MeetingStories.Plug.Authenticate
+  plug ConteurApp.Plug.Authenticate
   plug :scrub_params, "calendar" when action in [:create, :update]
 
   def index(conn, _params) do

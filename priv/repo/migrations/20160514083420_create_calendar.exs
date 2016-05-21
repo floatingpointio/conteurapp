@@ -1,4 +1,4 @@
-defmodule MeetingStories.Repo.Migrations.CreateCalendar do
+defmodule ConteurApp.Repo.Migrations.CreateCalendar do
   use Ecto.Migration
 
   def change do

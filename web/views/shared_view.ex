@@ -1,3 +1,3 @@
-defmodule MeetingStories.SharedView do
-  use MeetingStories.Web, :view
+defmodule ConteurApp.SharedView do
+  use ConteurApp.Web, :view
 end

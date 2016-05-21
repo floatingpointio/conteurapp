@@ -1,4 +1,4 @@
-defmodule MeetingStories.ConnCase do
+defmodule ConteurApp.ConnCase do
   @moduledoc """
   This module defines the test case to be used by
   tests that require setting up a connection.
@@ -20,20 +20,20 @@ defmodule MeetingStories.ConnCase do
       # Import conveniences for testing with connections
       use Phoenix.ConnTest
 
-      alias MeetingStories.Repo
+      alias ConteurApp.Repo
       import Ecto.Model
       import Ecto.Query, only: [from: 2]
 
-      import MeetingStories.Router.Helpers
+      import ConteurApp.Router.Helpers
 
       # The default endpoint for testing
-      @endpoint MeetingStories.Endpoint
+      @endpoint ConteurApp.Endpoint
     end
   end
 
   setup tags do
     unless tags[:async] do
-      Ecto.Adapters.SQL.restart_test_transaction(MeetingStories.Repo, [])
+      Ecto.Adapters.SQL.restart_test_transaction(ConteurApp.Repo, [])
     end
 
     {:ok, conn: Phoenix.ConnTest.conn()}

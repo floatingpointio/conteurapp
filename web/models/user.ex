@@ -1,11 +1,11 @@
-defmodule MeetingStories.User do
-  use MeetingStories.Web, :model
+defmodule ConteurApp.User do
+  use ConteurApp.Web, :model
 
   alias Ecto.DateTime
   alias Ecto.Date
   
   schema "users" do
-    has_many :calendars, MeetingStories.Calendar
+    has_many :calendars, ConteurApp.Calendar
     has_many :events, through: [:calendars, :events]
     
 

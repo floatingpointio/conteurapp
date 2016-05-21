@@ -1,13 +1,13 @@
-defmodule MeetingStories.UserFromAuth do
-  alias MeetingStories.Repo
-  alias MeetingStories.Changeset
+defmodule ConteurApp.UserFromAuth do
+  alias ConteurApp.Repo
+  alias ConteurApp.Changeset
 
-  alias MeetingStories.User
+  alias ConteurApp.User
 
   alias Ueberauth.Auth
 
   import Ecto.Changeset
-  import MeetingStories.UnixTsConvert
+  import ConteurApp.UnixTsConvert
 
   def find_or_create(%Auth{provider: :identity} = auth) do
     case validate_pass(auth.credentials) do

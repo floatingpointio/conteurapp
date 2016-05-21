@@ -1,8 +1,8 @@
-defmodule MeetingStories.Mixfile do
+defmodule ConteurApp.Mixfile do
   use Mix.Project
 
   def project do
-    [app: :meeting_stories,
+    [app: :conteur_app,
       version: "0.0.1",
       elixir: "~> 1.0",
       elixirc_paths: elixirc_paths(Mix.env),
@@ -17,7 +17,7 @@ defmodule MeetingStories.Mixfile do
   #
   # Type `mix help compile.app` for more information.
   def application do
-    [mod: {MeetingStories, []},
+    [mod: {ConteurApp, []},
       applications: [
         :phoenix,
         :phoenix_html,
@@ -47,6 +47,7 @@ defmodule MeetingStories.Mixfile do
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:gettext, "~> 0.9"},
      {:cowboy, "~> 1.0"},
+     {:cors_plug, "~> 1.1"},
      {:ueberauth, "~> 0.2"},
      {:ueberauth_google, "~> 0.2"},
      {:timex, "~> 2.1"},

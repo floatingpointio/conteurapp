@@ -1,10 +1,10 @@
-defmodule MeetingStories.Api.StoryController do
-  use MeetingStories.Web, :controller
+defmodule ConteurApp.Api.StoryController do
+  use ConteurApp.Web, :controller
 
-  alias MeetingStories.Story
-  alias MeetingStories.StoryEvent
+  alias ConteurApp.Story
+  alias ConteurApp.StoryEvent
 
-  plug MeetingStories.Plug.Authenticate
+  plug ConteurApp.Plug.Authenticate
 
   def index(conn, _params) do
     stories = Repo.all(Story)
@@ -61,7 +61,7 @@ defmodule MeetingStories.Api.StoryController do
       {:error, changeset} ->
         conn
         |> put_status(:unprocessable_entity)
-        |> render(MeetingStories.ChangesetView, "error.json", changeset: changeset)
+        |> render(ConteurApp.ChangesetView, "error.json", changeset: changeset)
     end
   end
 

@@ -6,12 +6,12 @@
 use Mix.Config
 
 # Configures the endpoint
-config :meeting_stories, MeetingStories.Endpoint,
+config :conteur_app, ConteurApp.Endpoint,
   url: [host: "localhost"],
   root: Path.dirname(__DIR__),
   secret_key_base: "J2/j9c4JhMsO7CzfvJa7sJn1dHvQRDLgRqYKYRHaWcCgxnYlLfGoKII5o2IIG580",
   render_errors: [accepts: ~w(html json)],
-  pubsub: [name: MeetingStories.PubSub,
+  pubsub: [name: ConteurApp.PubSub,
            adapter: Phoenix.PubSub.PG2]
 
 # Configures Elixir's Logger

@@ -1,4 +1,4 @@
-defmodule MeetingStories.Repo.Migrations.CreateUniqueUserCalendarAndEventIndexes do
+defmodule ConteurApp.Repo.Migrations.CreateUniqueUserCalendarAndEventIndexes do
   use Ecto.Migration
 
   def change do

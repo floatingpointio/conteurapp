@@ -1,14 +1,14 @@
-defmodule MeetingStories.Endpoint do
-  use Phoenix.Endpoint, otp_app: :meeting_stories
+defmodule ConteurApp.Endpoint do
+  use Phoenix.Endpoint, otp_app: :conteur_app
 
-  socket "/socket", MeetingStories.UserSocket
+  socket "/socket", ConteurApp.UserSocket
 
   # Serve at "/" the static files from "priv/static" directory.
   #
   # You should set gzip to true if you are running phoenix.digest
   # when deploying your static files in production.
   plug Plug.Static,
-    at: "/", from: :meeting_stories, gzip: false,
+    at: "/", from: :conteur_app, gzip: false,
     only: ~w(css fonts images js favicon.ico robots.txt)
 
   # Code reloading can be explicitly enabled under the
@@ -35,5 +35,5 @@ defmodule MeetingStories.Endpoint do
     key: "_meetingstories_key",
     signing_salt: "JTrezvT8"
 
-  plug MeetingStories.Router
+  plug ConteurApp.Router
 end

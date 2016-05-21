@@ -1,5 +1,5 @@
-defmodule MeetingStories.AuthView do
+defmodule ConteurApp.AuthView do
   @moduledoc false
 
-  use MeetingStories.Web, :view
+  use ConteurApp.Web, :view
 end

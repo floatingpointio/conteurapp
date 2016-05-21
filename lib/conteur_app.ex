@@ -1,4 +1,4 @@
-defmodule MeetingStories do
+defmodule ConteurApp do
   use Application
 
   # See http://elixir-lang.org/docs/stable/elixir/Application.html
@@ -8,23 +8,23 @@ defmodule MeetingStories do
 
     children = [
       # Start the endpoint when the application starts
-      supervisor(MeetingStories.Endpoint, []),
+      supervisor(ConteurApp.Endpoint, []),
       # Start the Ecto repository
-      supervisor(MeetingStories.Repo, []),
+      supervisor(ConteurApp.Repo, []),
       # Here you could define other workers and supervisors as children
-      # worker(MeetingStories.Worker, [arg1, arg2, arg3]),
+      # worker(ConteurApp.Worker, [arg1, arg2, arg3]),
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html
     # for other strategies and supported options
-    opts = [strategy: :one_for_one, name: MeetingStories.Supervisor]
+    opts = [strategy: :one_for_one, name: ConteurApp.Supervisor]
     Supervisor.start_link(children, opts)
   end
 
   # Tell Phoenix to update the endpoint configuration
   # whenever the application is updated.
   def config_change(changed, _new, removed) do
-    MeetingStories.Endpoint.config_change(changed, removed)
+    ConteurApp.Endpoint.config_change(changed, removed)
     :ok
   end
 end

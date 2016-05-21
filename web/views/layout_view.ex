@@ -1,3 +1,3 @@
-defmodule MeetingStories.LayoutView do
-  use MeetingStories.Web, :view
+defmodule ConteurApp.LayoutView do
+  use ConteurApp.Web, :view
 end
