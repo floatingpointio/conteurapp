@@ -1,8 +1,11 @@
-defmodule ConteurApp.EventChannel do
+defmodule ConteurApp.DataChannel do
   use Phoenix.Channel
 
-  def join("events:feed", message, socket) do
-    IO.puts "___________________-------------------"
+  def join("data:events", message, socket) do
+    {:ok, socket}
+  end
+  
+  def join("data:calendars", message, socket) do
     {:ok, socket}
   end
 
