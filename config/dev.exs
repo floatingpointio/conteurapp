@@ -24,7 +24,7 @@ config :conteur_app, ConteurApp.Repo,
   adapter: Ecto.Adapters.Postgres,
   username: "postgres",
   password: "postgres",
-  database: "meetingstories_dev",
+  database: "conteurapp_dev",
   hostname: "localhost",
   pool_size: 10
 
