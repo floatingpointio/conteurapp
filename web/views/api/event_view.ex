@@ -15,11 +15,11 @@ defmodule ConteurApp.Api.EventView do
 
   defp summarize_event(event) do
     %{
-      id: event.id,
-      origin_id: event.origin_id,
-      title: event.summary,
-      start: format_iso8601(event.starts_at),
-      end: format_iso8601(event.ends_at)
+      :id => event.id,
+      :origin_id => event.origin_id,
+      :title => event.summary,
+      :start => format_iso8601(event.starts_at),
+      :end => format_iso8601(event.ends_at)
     }
   end
 

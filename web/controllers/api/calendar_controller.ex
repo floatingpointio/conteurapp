@@ -1,16 +1,15 @@
-defmodule ConteurApp.CalendarController do
+defmodule ConteurApp.Api.CalendarController do
   use ConteurApp.Web, :controller
   alias ConteurApp.Calendar
   alias ConteurApp.Event
   import Ecto.Query
 
-  plug :put_layout, "dashboard.html"
   plug ConteurApp.Plug.Authenticate
   plug :scrub_params, "calendar" when action in [:create, :update]
 
   def index(conn, _params) do
     calendars = Repo.all(Calendar)
-    render(conn, "index.html", calendars: calendars)
+    render(conn, "index.json", calendars: calendars)
   end
 
   def show(conn, %{"id" => id}) do

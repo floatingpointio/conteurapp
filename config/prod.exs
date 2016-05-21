@@ -18,3 +18,6 @@ config :ueberauth, Ueberauth.Strategy.Google.OAuth,
   client_secret: "SiVaZlI_Y9cJZ-sxuM_ggWG7"
 
 config :logger, level: :info
+
+config :conteur_app, :google,
+  api_key: "AIzaSyCKm4l9XKrF-j9ONrRuTu31aKmz826JgH8"

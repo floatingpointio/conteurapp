@@ -28,11 +28,14 @@ config :conteur_app, ConteurApp.Repo,
   hostname: "localhost",
   pool_size: 10
 
+config :conteur_app, :google,
+  api_key: "AIzaSyB1eGONIXeyyRws15p1kNzkS446TW8TOBg"
+
 config :logger, :console, format: "[$level] $message\n"
 
 config :phoenix, :stacktrace_depth, 20
 
-
 config :ueberauth, Ueberauth.Strategy.Google.OAuth,
-  client_id: "590221922732-i056ghk6ic120dovsq9i3taqcd2kbf1g.apps.googleusercontent.com",
-  client_secret: "8YL2zcVL2uS4AZy-fxnraVV3"
+  client_id: "517182216420-t69s9ner27919m075k8tki9sd3ti6kvf.apps.googleusercontent.com",
+  client_secret: "TARB9FfAvHhOe4wiXTQnQjoY"
+

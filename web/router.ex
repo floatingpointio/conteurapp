@@ -18,27 +18,16 @@ defmodule ConteurApp.Router do
   scope "/", ConteurApp do
     pipe_through :browser # Use the default browser stack
 
-    get "/", PageController, :index
-    resources "/calendars", CalendarController, only: [:index, :show]
-  end
-
-  scope "/sync", ConteurApp do
-    pipe_through :browser
-
-    get "/calendars", SyncController, :calendars
-    post "/calendars", SyncController, :calendars
-    get "/calendars/:calendar_id", SyncController, :calendar_events
-    post "/calendars/:calendar_id", SyncController, :calendar_events
+    get "/", PageController, :landing
+    get "/app", PageController, :app
   end
 
   scope "/api", ConteurApp.Api do
     pipe_through :api
-    
 
-
-    resources "/kurac", KuracController, only: [:index]
-    resources "/events", EventController, only: [:index]
-    resources "/stories", StoryController, only: [:index]
+    resources "/calendars", CalendarController, only: [:index, :show]
+    resources "/events", EventController, only: [:index, :show]
+    resources "/stories", StoryController, only: [:index, :show]
   end
 
   scope "/auth", ConteurApp do
@@ -48,5 +37,15 @@ defmodule ConteurApp.Router do
     get "/:provider/callback", AuthController, :callback
     post "/:provider/callback", AuthController, :callback
     delete "/logout", AuthController, :delete
+  end
+  
+  # FOR DEBUGGING 
+  scope "/sync", ConteurApp do
+    pipe_through :browser
+
+    get "/calendars", SyncController, :calendars
+    post "/calendars", SyncController, :calendars
+    get "/calendars/:calendar_id", SyncController, :calendar_events
+    post "/calendars/:calendar_id", SyncController, :calendar_events
   end
 end

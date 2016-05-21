@@ -1,8 +1,12 @@
-defmodule MeetingStories.EventSync do
+defmodule ConteurApp.EventSync do
+  alias ConteurApp.DataFetching
+  alias ConteurApp.Calendar
+  alias ConteurApp.Event
+  alias ConteurApp.Repo
 
   def sync(user, cal_id) do
     calendar = Repo.get!(Calendar, cal_id)
-    resp = CalendarFetcher.fetch_events(user.token, calendar.origin_id)
+    resp = DataFetching.fetch_events(user.token, calendar.origin_id)
     insert_events calendar, resp["items"]
   end
 
@@ -18,10 +22,10 @@ defmodule MeetingStories.EventSync do
   end
 
   def build_event(calendar, ev_raw) do
-    starts_at_raw = ev["start"]["dateTime"]
-    ends_at_raw = ev["end"]["dateTime"]
-    origin_created_at_raw = ev["created"]
-    origin_updated_at_raw = ev["updated"]
+    starts_at_raw = ev_raw["start"]["dateTime"]
+    ends_at_raw = ev_raw["end"]["dateTime"]
+    origin_created_at_raw = ev_raw["created"]
+    origin_updated_at_raw = ev_raw["updated"]
 
     origin_created_at = if origin_created_at_raw do
       {:ok, res } = Timex.parse(origin_created_at_raw, "{ISO:Extended}")
@@ -45,9 +49,9 @@ defmodule MeetingStories.EventSync do
 
     data = %{
       calendar_id: calendar.id,
-      origin_id: ev["id"],
-      summary: ev["summary"],
-      status: ev["status"],
+      origin_id: ev_raw["id"],
+      summary: ev_raw["summary"],
+      status: ev_raw["status"],
       origin_created_at: origin_created_at,
       origin_updated_at: origin_updated_at,
       starts_at: starts_at,

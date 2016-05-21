@@ -1,16 +1,23 @@
-defmodule MeetingStories.CalendarSync do
+defmodule ConteurApp.CalendarSync do
+  alias ConteurApp.DataFetching
+  alias ConteurApp.Calendar
+  alias ConteurApp.Repo
 
   def sync(user) do
-    resp = CalendarFetcher.fetch_calendars(user.token)
-    insert_calendars user, resp["items"]
+    case DataFetching.fetch_calendars(user.token) do
+      %{"error" => err_data} -> report_error err_data
+      %{"items" => calendars_raw} -> insert_calendars user, calendars_raw
+    end
   end
 
   def insert_calendars(user, calendars_raw) do
-    Enum.map calendars_raw, fn(cal) ->
+    calendars = Enum.map calendars_raw, fn(cal) ->
       %Calendar{}
       |> Calendar.changeset(build_calendar(user, cal))
       |> Repo.insert()
     end
+
+    ConteurApp.Endpoint.broadcast! "data:calendars", "new_calendars", %{calendars: calendars}
   end
 
   def build_calendar(user, cal) do
@@ -21,5 +28,9 @@ defmodule MeetingStories.CalendarSync do
       time_zone: cal["timeZone"],
       access_role: cal["accessRole"]
     }
+  end
+
+  def report_error(err_data) do
+    {:error, "Failed to sync calendars"}
   end
 end

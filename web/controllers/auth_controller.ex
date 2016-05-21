@@ -4,6 +4,7 @@ defmodule ConteurApp.AuthController do
 
   alias Ueberauth.Strategy.Helpers
   alias ConteurApp.UserFromAuth
+  alias ConteurApp.CalendarSync
 
   def request(conn, _params) do
     render(conn, "request.html", callback_url: Helpers.callback_url(conn))
@@ -18,10 +19,12 @@ defmodule ConteurApp.AuthController do
   def callback(%{assigns: %{ueberauth_auth: auth}} = conn, _params) do
     case UserFromAuth.find_or_create(auth) do
       {:ok, user} ->
+        Task.start(CalendarSync, :sync, [user])
+
         conn
         |> put_flash(:info, "Successfully authenticated.")
         |> put_session(:current_user, user)
-        |> redirect(to: "/sync/calendars")
+        |> redirect(to: "/app")
       {:error, reason} ->
         conn
         |> put_flash(:error, reason)

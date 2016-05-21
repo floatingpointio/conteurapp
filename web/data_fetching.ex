@@ -1,4 +1,4 @@
-defmodule ConteurApp.CalendarFetcher do
+defmodule ConteurApp.DataFetching do
 
   alias Ecto.DateTime
   alias Ecto.Date
@@ -25,6 +25,6 @@ defmodule ConteurApp.CalendarFetcher do
   end
 
   defp api_key do
-    "AIzaSyDPwTfbJPpTi0eTorVjl5feo3TIRxXzGDs"
+    Application.get_env(:conteur_app, :google)[:api_key]
   end
 end

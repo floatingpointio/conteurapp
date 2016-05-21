@@ -1,22 +1,21 @@
-defmodule MeetingStories.SyncController do
-  use MeetingStories.Web, :controller
+defmodule ConteurApp.SyncController do
+  use ConteurApp.Web, :controller
 
-  alias MeetingStories.CalendarFetcher
-  alias MeetingStories.Calendar
-  alias MeetingStories.CalendarSync
-  alias MeetingStories.Event
-  alias MeetingStories.EventSync
+  alias ConteurApp.Calendar
+  alias ConteurApp.CalendarSync
+  alias ConteurApp.Event
+  alias ConteurApp.EventSync
   
-  plug MeetingStories.Plug.Authenticate
+  plug ConteurApp.Plug.Authenticate
 
   def calendars(conn, _params) do
     current_user = get_session(conn, :current_user)
 
-    if current_user do
-      CalendarSync.sync(current_user.token)
+    case CalendarSync.sync(current_user) do
+      {:error, err_msg} -> conn |> put_flash(:error, err_msg)
+      _ -> conn
     end
-
-    conn |> redirect(to: "/calendars")
+    |> redirect(to: "/calendars")
   end
   
   def calendar_events(conn, params) do
@@ -24,7 +23,7 @@ defmodule MeetingStories.SyncController do
     cal_id = params["calendar_id"]
     
     if current_user && cal_id do
-      EventSync.sync(current_user.token, cal_id)
+      EventSync.sync(current_user, cal_id)
     end
 
     conn |> redirect(to: "/calendars/#{cal_id}")

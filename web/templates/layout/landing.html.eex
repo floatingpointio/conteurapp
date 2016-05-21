@@ -7,16 +7,12 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>MeetingStories - Dashboard</title>
+    <title>MeetingStories</title>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
   </head>
 
-  <body class="dashboard">
-    <header class="header">
-      <%= render MeetingStories.SharedView, "dashboard_navbar.html" %>
-    </header>
-
-    <div class="container">
+  <body class="landing">
+    <div class="container-fluid">
 
       <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
       <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
