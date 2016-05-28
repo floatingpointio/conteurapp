@@ -13,6 +13,7 @@ defmodule ConteurApp.DataFetching do
 
   def fetch_events(token, cal_id) do
     url_encoded_cal_id = URI.encode(cal_id)
+
     response =
       "https://www.googleapis.com/calendar/v3/calendars/#{url_encoded_cal_id}/events?key=#{api_key}"
       |> HTTPoison.get!(headers(token))

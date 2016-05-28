@@ -6,6 +6,7 @@ defmodule ConteurApp.Event do
 
     field :origin_id, :string
     field :summary, :string
+    field :description, :string
     field :status, :string
     field :origin_created_at, Timex.Ecto.DateTime
     field :origin_updated_at, Timex.Ecto.DateTime
@@ -15,8 +16,8 @@ defmodule ConteurApp.Event do
     timestamps
   end
 
-  @required_fields ~w(calendar_id origin_id summary status)
-  @optional_fields ~w(origin_created_at origin_updated_at starts_at ends_at)
+  @required_fields ~w(calendar_id origin_id summary)
+  @optional_fields ~w(description status origin_created_at origin_updated_at starts_at ends_at)
 
   def changeset(model, params \\ :empty) do
     model
