@@ -5,6 +5,5 @@
 // and connect at the socket path in "lib/my_app/endpoint.ex":
 import {Socket} from "deps/phoenix/web/static/js/phoenix"
 
-
 window.socket = new Socket("/socket", {params: {token: window.userToken}})
 window.socket.connect()

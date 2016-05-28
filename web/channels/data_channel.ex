@@ -5,9 +5,9 @@ defmodule ConteurApp.DataChannel do
     {:ok, socket}
   end
   
-  def join("data:calendars", message, socket) do
-    {:ok, socket}
-  end
+  # def join("data:calendars", message, socket) do
+  #   {:ok, socket}
+  # end
 
   # It is also common to receive messages from the client and
   # broadcast to everyone in the current topic (toys:lobby).

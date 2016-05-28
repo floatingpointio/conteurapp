@@ -1,7 +1,7 @@
 defmodule ConteurApp.UserSocket do
   use Phoenix.Socket
 
-  channel "events:feed", ConteurApp.EventChannel
+  channel "data:events", ConteurApp.DataChannel
 
   transport :websocket, Phoenix.Transports.WebSocket, timeout: 45_000
   

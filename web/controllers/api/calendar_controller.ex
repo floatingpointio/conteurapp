@@ -13,7 +13,7 @@ defmodule ConteurApp.Api.CalendarController do
   end
 
   def show(conn, %{"id" => id}) do
-    current_user = conn.assigns.current_user
+    current_user = conn |> get_session(:current_user)
 
     calendar = Repo.get!(Calendar, id)
 

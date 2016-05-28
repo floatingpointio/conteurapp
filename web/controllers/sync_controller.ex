@@ -15,7 +15,7 @@ defmodule ConteurApp.SyncController do
       {:error, err_msg} -> conn |> put_flash(:error, err_msg)
       _ -> conn
     end
-    |> redirect(to: "/calendars")
+    |> redirect(to: "/app")
   end
   
   def calendar_events(conn, params) do
@@ -26,6 +26,6 @@ defmodule ConteurApp.SyncController do
       EventSync.sync(current_user, cal_id)
     end
 
-    conn |> redirect(to: "/calendars/#{cal_id}")
+    conn |> redirect(to: "/app")
   end
 end

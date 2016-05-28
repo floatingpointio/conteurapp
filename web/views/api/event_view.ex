@@ -10,21 +10,30 @@ defmodule ConteurApp.Api.EventView do
   end
 
   def render("event.json", %{event: event}) do
-    summarize_event(event)
+    as_json(event)
   end
 
-  defp summarize_event(event) do
+  def as_json(event) do
     %{
-      :id => event.id,
-      :origin_id => event.origin_id,
-      :title => event.summary,
-      :start => format_iso8601(event.starts_at),
-      :end => format_iso8601(event.ends_at)
+      id: event.id,
+      origin_id: event.origin_id,
+      title: event.summary,
+      status: event.status,
+      start: format_iso8601(event.starts_at),
+      end: format_iso8601(event.ends_at)
     }
   end
 
-  defp format_iso8601(datetime) do
-    {:ok, dt} = Timex.Ecto.DateTime.dump datetime
+  defp format_iso8601(nil) do
+    "N/A"
+  end
+
+  defp format_iso8601(ts) when not is_nil(ts) do
+    dump_and_format(ts)
+  end
+
+  defp dump_and_format(datetime) do
+    {:ok, dt} = Timex.Ecto.DateTime.dump datetime 
     Timex.format!(dt, "{ISO:Extended}")
   end
 end
