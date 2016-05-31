@@ -5,8 +5,9 @@ defmodule ConteurApp.Repo.Migrations.CreateEvent do
     create table(:events) do
       add :calendar_id, references(:calendars, on_delete: :nothing), null: false
       add :origin_id, :string
-      add :summary, :string
       add :status, :string
+      add :summary, :text
+      add :description, :text, default: ""
       add :origin_created_at, :datetime
       add :origin_updated_at, :datetime
       add :starts_at, :datetime

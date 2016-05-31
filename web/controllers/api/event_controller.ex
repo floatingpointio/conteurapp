@@ -12,9 +12,10 @@ defmodule ConteurApp.Api.EventController do
       |> where([e], e.calendar_id == ^calendar_id)
       |> select([e], count(e.id))
 
-    events_q = Event
-      |> where([e], e.calendar_id == ^calendar_id)
-      |> order_by([e], [asc: e.starts_at, asc: e.ends_at])
+    events_q =
+      Event.with_tags_and_related_events
+      |> where([e1, et1, et2, e2, t], e1.calendar_id == ^calendar_id)
+      |> order_by([e1, et1, et2, e2, t], [desc: e1.ends_at, desc: e1.starts_at])
 
     events = if Repo.one(events_count_q) == 0 do
       Task.start(EventSync, :sync, [current_user, calendar_id])

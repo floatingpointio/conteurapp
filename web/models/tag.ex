@@ -3,6 +3,7 @@ defmodule ConteurApp.Tag do
 
   schema "tags" do
     field :name, :string
+    has_many :tag_events, ConteurApp.TagEvent
 
     timestamps
   end

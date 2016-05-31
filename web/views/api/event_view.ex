@@ -10,19 +10,51 @@ defmodule ConteurApp.Api.EventView do
   end
 
   def render("event.json", %{event: event}) do
-    as_json(event)
+    as_json(event, [:with_tags, :with_related])
+  end
+  
+  def as_json(event, []), do: base_json(event)
+
+  def as_json(event, [:with_related]) do
+    base_json(event)
+    |> Map.merge(%{
+      related: Enum.map(event.events, fn(e) ->
+        %{ id: e.id, summary: e.summary, description: e.description }
+      end),
+    })
   end
 
-  def as_json(event) do
+  def as_json(event, [:with_tags]) do
+    base_json(event)
+    |> Map.merge(%{
+      tags: Enum.map(event.tags, &(&1.name))
+    })
+  end
+
+  def as_json(event, [:with_tags, :with_related]) do
+    base_json(event)
+    |> Map.merge(%{
+      related: Enum.map(event.events, fn(e) ->
+        %{ id: e.id, summary: e.summary, description: e.description }
+      end),
+    })
+    |> Map.merge(%{
+      tags: Enum.map(event.tags, &(&1.name))
+    })
+  end
+
+  defp base_json(event) do
     %{
       id: event.id,
       origin_id: event.origin_id,
-      title: event.summary,
+      summary: event.summary,
+      description: event.description,
       status: event.status,
-      start: format_iso8601(event.starts_at),
-      end: format_iso8601(event.ends_at)
+      starts_at: format_iso8601(event.starts_at),
+      ends_at: format_iso8601(event.ends_at)
     }
   end
+
 
   defp format_iso8601(nil) do
     "N/A"

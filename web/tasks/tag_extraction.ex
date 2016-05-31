@@ -1,5 +1,4 @@
 defmodule ConteurApp.TagExtraction do
-
   @hashtag_regex ~r/(?<=\s|^)#(\w*[A-Za-z_]+\w*)/
 
   def extract(event) do

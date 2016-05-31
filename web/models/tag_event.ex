@@ -1,14 +1,14 @@
-defmodule ConteurApp.EventTag do
+defmodule ConteurApp.TagEvent do
   use ConteurApp.Web, :model
 
-  schema "event_tags" do
+  schema "tag_events" do
+    belongs_to :tag, ConteurApp.Tag
     belongs_to :event, ConteurApp.Event
-    belongs_to :tag, ConteurApp.Story
 
     timestamps
   end
 
-  @required_fields ~w(event_id tag_id)
+  @required_fields ~w(tag_id event_id)
   @optional_fields ~w()
 
   def changeset(model, params \\ :empty) do
@@ -16,3 +16,5 @@ defmodule ConteurApp.EventTag do
     |> cast(params, @required_fields, @optional_fields)
   end
 end
+
+

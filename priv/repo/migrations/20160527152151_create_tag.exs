@@ -8,7 +8,7 @@ defmodule ConteurApp.Repo.Migrations.CreateTag do
       timestamps
     end
 
-    create table(:event_tags) do
+    create table(:tag_events) do
       add :event_id, references(:events, on_delete: :nothing), null: false
       add :tag_id, references(:tags, on_delete: :nothing), null: false
 
@@ -16,6 +16,6 @@ defmodule ConteurApp.Repo.Migrations.CreateTag do
     end
 
     create index(:tags, [:name])
-    create unique_index(:event_tags, [:tag_id, :event_id])
+    create unique_index(:tag_events, [:tag_id, :event_id])
   end
 end
