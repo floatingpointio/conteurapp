@@ -13,11 +13,12 @@ config :conteur_app, ConteurApp.Repo,
   pool_size: 20,
   ssl: true
 
-config :ueberauth, Ueberauth.Strategy.Google.OAuth,
-  client_id: "590221922732-cv0o0e9hvok3r6e7uc2ke0mi04lhl68p.apps.googleusercontent.com",
-  client_secret: "SiVaZlI_Y9cJZ-sxuM_ggWG7"
-
 config :logger, level: :info
 
 config :conteur_app, :google,
   api_key: "AIzaSyCKm4l9XKrF-j9ONrRuTu31aKmz826JgH8"
+
+config :ueberauth, Ueberauth.Strategy.Google.OAuth,
+  client_id: "517182216420-vrl9ma0f3tdled81f2f8v6f52mm7feqt.apps.googleusercontent.com",
+  client_secret: "UXVH2wRMNZhD-DVxH5iMKorY"
+

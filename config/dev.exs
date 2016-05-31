@@ -28,12 +28,12 @@ config :conteur_app, ConteurApp.Repo,
   hostname: "localhost",
   pool_size: 10
 
-config :conteur_app, :google,
-  api_key: "AIzaSyB1eGONIXeyyRws15p1kNzkS446TW8TOBg"
-
 config :logger, :console, format: "[$level] $message\n"
 
 config :phoenix, :stacktrace_depth, 20
+
+config :conteur_app, :google,
+  api_key: "AIzaSyB1eGONIXeyyRws15p1kNzkS446TW8TOBg"
 
 config :ueberauth, Ueberauth.Strategy.Google.OAuth,
   client_id: "517182216420-t69s9ner27919m075k8tki9sd3ti6kvf.apps.googleusercontent.com",
