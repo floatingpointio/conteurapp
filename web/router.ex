@@ -28,6 +28,11 @@ defmodule ConteurApp.Router do
     resources "/calendars", CalendarController, only: [:index, :show]
     resources "/events", EventController, only: [:index, :show]
     resources "/stories", StoryController, only: [:index, :show]
+
+    get "/postback/events", PostbackController, :hi
+    post "/postback/events", PostbackController, :handle_event
+    get "/postback/calendars", PostbackController, :hi
+    post "/postback/calendars", PostbackController, :handle_calendar
   end
 
   scope "/auth", ConteurApp do
@@ -38,7 +43,7 @@ defmodule ConteurApp.Router do
     post "/:provider/callback", AuthController, :callback
     delete "/logout", AuthController, :delete
   end
-  
+
   # FOR DEBUGGING 
   scope "/sync", ConteurApp do
     pipe_through :browser

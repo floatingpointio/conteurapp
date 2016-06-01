@@ -12,17 +12,10 @@ defmodule ConteurApp.EventSync do
 
   require Logger
 
-  def sync(user, cal_id) do
-    calendar = Repo.get(Calendar, cal_id)
-
-    case calendar do
-      %{:origin_id => origin_id} ->
-        case fetch_events(user.token, calendar.origin_id) do
-          %{"error" => err_data} -> report_error(err_data)
-          %{"items" => events_raw} -> insert_and_push_events(events_raw, calendar)
-        end
-      nil ->
-        Logger.warn "No such calendar: Requested calendar ID #{cal_id}"
+  def sync(user, calendar) do
+    case fetch_events(user.token, calendar.origin_id) do
+      %{"error" => err_data} -> report_error(err_data)
+      %{"items" => events_raw} -> insert_and_push_events(events_raw, calendar)
     end
   end
 

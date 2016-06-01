@@ -5,6 +5,8 @@ defmodule ConteurApp.SyncController do
   alias ConteurApp.CalendarSync
   alias ConteurApp.Event
   alias ConteurApp.EventSync
+  alias ConteurApp.PostbackRegistration
+  alias ConteurApp.Repo
   
   plug ConteurApp.Plug.Authenticate
 
@@ -18,12 +20,13 @@ defmodule ConteurApp.SyncController do
     |> redirect(to: "/app")
   end
   
-  def calendar_events(conn, params) do
+  def calendar_events(conn, %{"calendar_id" => calendar_id} = params) do
     current_user = get_session(conn, :current_user)
-    cal_id = params["calendar_id"]
+    calendar = Repo.get(Calendar, calendar_id)
     
-    if current_user && cal_id do
-      EventSync.sync(current_user, cal_id)
+    if current_user && calendar do
+      Task.start fn -> EventSync.sync(current_user, calendar.id) end
+      Task.start fn -> PostbackRegistration.watch_events(current_user, calendar) end
     end
 
     conn |> redirect(to: "/app")

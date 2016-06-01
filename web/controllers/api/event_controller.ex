@@ -3,10 +3,12 @@ defmodule ConteurApp.Api.EventController do
   alias ConteurApp.Calendar
   alias ConteurApp.Event
   alias ConteurApp.EventSync
+  alias ConteurApp.Repo
   import Ecto.Query
 
   def index(conn, %{"calendar_id" => calendar_id} = params) do
     current_user = conn |> get_session(:current_user)
+    calendar = Repo.get(Calendar, calendar_id)
 
     events_count_q = Event
       |> where([e], e.calendar_id == ^calendar_id)
@@ -18,7 +20,7 @@ defmodule ConteurApp.Api.EventController do
       |> order_by([e1, et1, et2, e2, t], [desc: e1.ends_at, desc: e1.starts_at])
 
     events = if Repo.one(events_count_q) == 0 do
-      Task.start(EventSync, :sync, [current_user, calendar_id])
+      Task.start fn -> EventSync.sync(current_user, calendar) end
       []
     else
       Repo.all(events_q)
