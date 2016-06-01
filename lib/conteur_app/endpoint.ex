@@ -9,7 +9,7 @@ defmodule ConteurApp.Endpoint do
   # when deploying your static files in production.
   plug Plug.Static,
     at: "/", from: :conteur_app, gzip: false,
-    only: ~w(css fonts images js favicon.ico robots.txt)
+    only: ~w(css fonts images js favicon.ico robots.txt googled937389204e5ca42.html)
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.
